@@ -1,0 +1,150 @@
+.app {
+  text-align: center;
+}
+
+.header {
+  background-color: #282c34;
+  min-height: 5vh;
+  font-size: xxx-large;
+  color: white;
+}
+
+.body {
+  background-color: #282c34;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: white;
+}
+
+.footer {
+  background-color: #282c34;
+  min-height: 3vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.player {
+  margin: 1em;
+}
+
+.winner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.symbol {
+  min-width: 10vw;
+  max-width: max-content;
+  pointer-events: none;
+  float: left;
+  padding: 0 1em;
+}
+
+.input {
+  width: 7em;
+  font-size: xx-large;
+  float: left;
+  border: none;
+  background-color: #282c34;
+  color: white;
+}
+
+.select {
+  width: 9em;
+  font-size: x-large;
+  float: left;
+  border: none;
+  padding: 1em;
+  text-align-last: center;
+  cursor: pointer;
+}
+
+.button {
+  width: 12em;
+  height: 3em;
+  font-size: x-large;
+  border: none;
+  background-color: lightslategray;
+  color: #282c34;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.stone {
+  background: lightslategray;
+}
+
+.scissors {
+  background: coral;
+}
+
+.paper {
+  background: darkolivegreen;
+}
+
+.fountain {
+  background: aqua;
+}
+
+.none {
+  background: azure;
+}
+
+.space {
+  padding: 1em;
+}
+
+.margin {
+  margin-top: 1.1em;
+}
+
+.roundBorder {
+  border-radius: 4px;
+}
+
+.light {
+  opacity: .5;
+}
+
+.disabled {
+  opacity: .1;
+  cursor: unset;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.fontColor {
+  color: #282c34;
+}
+
+.floating_text {
+  font-size: xx-large;
+  float: left;
+  text-align: left;
+}
+
+.normalFont {
+  font-weight: normal;
+}
+
+.left {
+  float: left;
+}
+
+.strong {
+  margin-right: 1em;
+  padding: 0 1em;
+  min-width: 12vw;
+}
