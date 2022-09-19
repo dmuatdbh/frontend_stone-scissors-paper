@@ -9,6 +9,7 @@ export interface IState {
 export interface IProps {
     symbolValue: string
     playerId: number | undefined
+    type: string
 }
 
 export class Symbol extends React.Component<IProps, IState> {
@@ -27,13 +28,19 @@ export class Symbol extends React.Component<IProps, IState> {
         this.setState({
             symbol: symbol,
         });
-        document.getElementById("play")!.classList.remove((name && symbol) ? "disabled" : "");
+        const playButton = document.getElementById("play")!;
+        if ((name && symbol)) {
+            playButton.classList.remove('disabled');
+            playButton.removeAttribute('disabled');
+        } else {
+            playButton.setAttribute('disabled', '');
+        }
     }
 
     public render() {
         return (
             <div>
-                {this.props.playerId === 1 ? (
+                {this.props.type === "bot" ? (
                         <article id={"symbol_1"}
                             className={"symbol roundBorder light fontColor " + (this.props.symbolValue ?
                                 this.props.symbolValue.toLowerCase() : "none")}

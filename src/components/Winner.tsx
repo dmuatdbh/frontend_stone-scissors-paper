@@ -1,5 +1,6 @@
 import React from "react";
 import {PlayerService} from "../service/PlayerService";
+import {AppContext} from "../application/AppContext";
 
 export interface IState {
     name: string;
@@ -36,7 +37,7 @@ export class Winner extends React.Component<any, IState> {
     }
 
     private getWinner = async() => {
-        const result = await PlayerService.get("winner");
+        const result = await PlayerService.get("winner/" + AppContext.get().botId + "/" + AppContext.get().playerId);
         const name = result.name;
         const symbol = result.symbol?.symbolValue;
         this.setState({
@@ -48,7 +49,7 @@ export class Winner extends React.Component<any, IState> {
     }
 
     private updateBot = async() => {
-        const result = await PlayerService.get("1");
+        const result = await PlayerService.get(AppContext.get().botId);
         const symbol = result.symbol?.symbolValue;
         ["stone", "scissors", "paper", "fountain", "none"].forEach((cssClass) =>
             document.getElementById("symbol_1")!.classList.remove(cssClass ));

@@ -6,10 +6,10 @@ export class Players extends React.Component<any, any> {
     public render() {
         return (<div className={"players"}>
             <Player
-                id={1}
+                type={"bot"}
             />
             <Player
-                id={2}
+                type={"real"}
             />
         </div>)
     }

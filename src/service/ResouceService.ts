@@ -2,11 +2,11 @@ export class ResouceService {
 
     private static readonly REST_API_URL= "http://localhost:8180/";
 
-    protected static async call(servicePath: string, httpMethod: "GET" | "PATCH") {
+    protected static async call(servicePath: string, httpMethod: "GET" | "PATCH" | "PUT") {
         return ResouceService.callServer(this.REST_API_URL + servicePath, httpMethod);
     }
 
-    private static async callServer(url: string, method: "GET" | "PATCH") {
+    private static async callServer(url: string, method: "GET" | "PATCH" | "PUT") {
         const headers: Headers = new Headers({
             "Accept": "application/json, text/plain, */*",
         });

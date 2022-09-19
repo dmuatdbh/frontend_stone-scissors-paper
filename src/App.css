@@ -80,6 +80,10 @@
   cursor: pointer;
 }
 
+.button:active {
+  transform: translateY(1px);
+}
+
 .stone {
   background: lightslategray;
 }

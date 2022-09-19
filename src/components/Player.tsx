@@ -1,67 +1,74 @@
 import React from "react";
 import {PlayerService} from "../service/PlayerService";
 import {Symbol} from "./Symbol";
+import {AppContext} from "../application/AppContext";
 
 interface IState {
     name: string;
     symbol: string;
+    id: number | undefined;
 }
 
 export interface IProps {
-    id: number | undefined;
+    type: string;
 }
 
 export class Player extends React.Component<IProps, IState> {
 
-    private readonly id: number | undefined;
-
     constructor(props: any) {
         super(props);
-        this.id = this.props.id;
         this.state = {
             name: "",
-            symbol: ""
+            symbol: "",
+            id: undefined,
         }
     }
 
     componentDidMount() {
-        this.getPlayer();
+        this.cratePlayer();
     }
 
-    private getPlayer = async() => {
-        const result = await PlayerService.get("" + this.props.id);
+    private cratePlayer = async() => {
+        const result = await PlayerService.put(this.props.type);
+        const id = result.id;
         const name = result.name;
         const symbol = result.symbol?.symbolValue;
         this.setState({
             name: name,
             symbol: symbol,
+            id: id,
         });
+        this.props.type === "bot" ? AppContext.get().botId = id : AppContext.get().playerId = id;
     }
 
     private async updatePlayer(value: string) {
         if (value.length > 0) {
-            const result = await PlayerService.patch(this.props.id + "/name/" + value);
+            const result = await PlayerService.patch(this.state.id + "/name/" + value);
             const name = result.name;
             const symbol = result.symbol?.symbolValue;
             this.setState({
                 name: name,
                 symbol: symbol,
             });
+            const playButton = document.getElementById("play")!;
             if(name && symbol) {
-                document.getElementById("play")!.classList.remove( "disabled");
+                playButton.classList.remove( "disabled");
+                playButton.removeAttribute('disabled');
+            } else {
+                playButton.setAttribute('disabled', '');
             }
         }
     }
 
     private getNameInput = () => {
         return <input
-            className={"input"}
+            className={"input roundBorder"}
             type={"text"}
-            id={"name_" + this.props.id}
+            id={"name_" + this.state.id}
             placeholder={"Tpye name"}
             value={this.state.name ? this.state.name : ""}
-            disabled={this.props.id === 1}
-            maxLength={14}
+            disabled={this.props.type === "bot"}
+            maxLength={10}
             onChange={event => this.updatePlayer(event.target.value)}
         />
     }
@@ -72,7 +79,8 @@ export class Player extends React.Component<IProps, IState> {
                 {this.getNameInput()}
                 <Symbol
                     symbolValue={this.state.symbol}
-                    playerId={this.props.id}
+                    playerId={this.state.id}
+                    type={this.props.type}
                 />
             </div>
         );
