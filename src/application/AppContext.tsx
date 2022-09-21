@@ -24,6 +24,16 @@ export class AppContext {
     set playerId(value: any) {
         this._playerId = value;
     }
+
+    get symbols(): string[] | undefined {
+        return this._symbols;
+    }
+
+    set symbols(value: string[] | undefined) {
+        this._symbols = value;
+    }
+
     private _botId = undefined;
     private _playerId = undefined;
+    private _symbols: string[] | undefined;
 }

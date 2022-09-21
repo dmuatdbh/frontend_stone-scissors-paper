@@ -1,6 +1,8 @@
 import React from "react";
 // @ts-ignore
 import {PlayerService} from "../service/PlayerService";
+import {AppContext} from "../application/AppContext";
+import {SettingsService} from "../service/SettingsService";
 
 export interface IState {
     symbol: string,
@@ -19,6 +21,13 @@ export class Symbol extends React.Component<IProps, IState> {
         this.state = {
             symbol: props.symbolValue,
         };
+    }
+
+    componentDidMount() {
+        SettingsService.get("symbols")
+            .then((result) => {
+                AppContext.get().symbols = result
+            });
     }
 
     private async updatePlayer(value: string) {
@@ -54,11 +63,11 @@ export class Symbol extends React.Component<IProps, IState> {
                                 value={this.state.symbol ? this.state.symbol : this.props.symbolValue}
                                 id={"symbol_" + this.props.playerId}
                                 >
-                            <option disabled={true} placeholder={""} value="" >Select symbol</option>
-                            <option value="STONE" >STONE</option>
-                            <option value="SCISSORS">SCISSORS</option>
-                            <option value="PAPER">PAPER</option>
-                            <option value="FOUNTAIN">FOUNTAIN</option>
+                            <option key={"none"} disabled={true} placeholder={""} value="" >Select symbol</option>
+                            {AppContext.get().symbols ?
+                                (AppContext.get().symbols!.map((symbol) => (
+                                    <option key={symbol.toLowerCase()} value={symbol.toUpperCase()}>{symbol.toUpperCase()}</option>
+                                ))) : ""}
                         </select>
                     )}
             </div>)
